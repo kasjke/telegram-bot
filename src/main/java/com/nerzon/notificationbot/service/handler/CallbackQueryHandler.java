@@ -3,7 +3,7 @@ package com.nerzon.notificationbot.service.handler;
 import com.nerzon.notificationbot.bot.Bot;
 import com.nerzon.notificationbot.service.contract.AbstractHandler;
 import com.nerzon.notificationbot.service.manager.MainManager;
-import com.nerzon.notificationbot.service.manager.NotificationManager;
+import com.nerzon.notificationbot.service.manager.notification.NotificationManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.interfaces.BotApiObject;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class CallbackQueryHandler extends AbstractHandler {
     NotificationManager notificationManager;
     MainManager mainManager;
     @Override
-    public BotApiMethod<?> answer(BotApiObject object, Bot bot) {
+    public BotApiMethod<?> answer(BotApiObject object, Bot bot) throws TelegramApiException {
         var query = (CallbackQuery) object;
         String[] words = query.getData().split("_");
         switch (words[0]) {
