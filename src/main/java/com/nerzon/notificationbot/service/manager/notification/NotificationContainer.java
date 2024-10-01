@@ -55,7 +55,7 @@ public class NotificationContainer implements Runnable {
         return SendMessage.builder()
                 .chatId(chatId)
                 .text(
-                        "⚡\uFE0F Напоминание: " + notification.getTitle() + "\n"
+                        "⚡\uFE0F Нагадування: " + notification.getTitle() + "\n"
                         + "❗\uFE0F " + notification.getDescription() + "\n\n"
                 )
                 .build();

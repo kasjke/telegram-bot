@@ -48,7 +48,7 @@ public class NotificationManager extends AbstractManager
     public BotApiMethod<?> mainMenu(Message message, Bot bot) {
         return SendMessage.builder()
                 .chatId(message.getChatId())
-                .text("Настройте уведомление")
+                .text("Налаштуйте нагадування")
                 .replyMarkup(
                         editNotificationReplyMarkup(
                                 String.valueOf(
@@ -65,10 +65,10 @@ public class NotificationManager extends AbstractManager
         return EditMessageText.builder()
                 .chatId(query.getMessage().getChatId())
                 .messageId(query.getMessage().getMessageId())
-                .text("###")
+                .text("Додати нагадування?")
                 .replyMarkup(
                         keyboardFactory.createInlineKeyboard(
-                                List.of("Добавить уведомление"),
+                                List.of("Додати нагадування"),
                                 List.of(1),
                                 List.of(notification_new.name())
                         )
@@ -135,7 +135,7 @@ public class NotificationManager extends AbstractManager
             notification.setSeconds(seconds);
         } else {
             return SendMessage.builder()
-                    .text("Некорректный формат ввода\nЧЧ:ММ:СС (01:00:30 - один час, ноль минут, тридцать секунд)")
+                    .text("Некоректний формат введення\nГД:ХВ:СС (01:00:30 - одна година, нуль хвилин, 30 секунд)")
                     .chatId(message.getChatId())
                     .replyMarkup(
                             keyboardFactory.createInlineKeyboard(
@@ -201,12 +201,12 @@ public class NotificationManager extends AbstractManager
         if (notification.getTitle() == null  || notification.getTitle().isBlank() || notification.getSeconds() == null) {
             return AnswerCallbackQuery.builder()
                             .callbackQueryId(query.getId())
-                            .text("Заполните обязательные значения: Заголовок и Время")
+                            .text("Заповніть обов'язкові поля: Заголовок і Час")
                             .build();
         }
         bot.execute(
                 AnswerCallbackQuery.builder()
-                        .text("Уведомление придет к вам через " + notification.getSeconds() + " секунд \uD83D\uDC40")
+                        .text("Нагадування прийде до вас через  " + notification.getSeconds() + " секунд \uD83D\uDC40")
                         .callbackQueryId(query.getId())
                         .build()
         );
@@ -221,12 +221,12 @@ public class NotificationManager extends AbstractManager
                 )
         );
         return EditMessageText.builder()
-                .text("✅ Успешно")
+                .text("✅ Успішно")
                 .chatId(query.getMessage().getChatId())
                 .messageId(query.getMessage().getMessageId())
                 .replyMarkup(
                         keyboardFactory.createInlineKeyboard(
-                                List.of("На главную"),
+                                List.of("На головну сторінку"),
                                 List.of(1),
                                 List.of(main.name())
 
@@ -239,7 +239,7 @@ public class NotificationManager extends AbstractManager
         return EditMessageText.builder()
                 .chatId(query.getMessage().getChatId())
                 .messageId(query.getMessage().getMessageId())
-                .text("Настройте уведомление")
+                .text("Налаштуйте нагадування")
                 .replyMarkup(editNotificationReplyMarkup(id))
                 .build();
     }
@@ -250,7 +250,7 @@ public class NotificationManager extends AbstractManager
         user.setCurrentNotification(UUID.fromString(id));
         userRepo.save(user);
         return EditMessageText.builder()
-                .text("⚡\uFE0F Введите время, по прошествии которого хотите получить напоминание\nФормат - ЧЧ:ММ:СС\nНапример - (01:30:00) - полтора часа")
+                .text("⚡\uFE0F Введіть час, через який, хочете отримати нагадування\nФормат - ЧЧ:ММ:СС\nПриклад - (01:30:00) - Півтори години")
                 .messageId(query.getMessage().getMessageId())
                 .chatId(query.getMessage().getChatId())
                 .replyMarkup(
@@ -269,7 +269,7 @@ public class NotificationManager extends AbstractManager
         user.setCurrentNotification(UUID.fromString(id));
         userRepo.save(user);
         return EditMessageText.builder()
-                .text("⚡\uFE0F Добавьте или измените описание, просто напишите в чат тест, который бы хотели получить")
+                .text("⚡\uFE0F Додайте або змініть опис,напишіть текст який хотіли б отримати")
                 .messageId(query.getMessage().getMessageId())
                 .chatId(query.getMessage().getChatId())
                 .replyMarkup(
@@ -288,7 +288,7 @@ public class NotificationManager extends AbstractManager
         user.setCurrentNotification(UUID.fromString(id));
         userRepo.save(user);
         return EditMessageText.builder()
-                .text("⚡\uFE0F Опишите краткий заголовок в следующем сообщение, чтобы вам было сразу понятно, что я вам напоминаю")
+                .text("⚡\uFE0F Додайте короткий заголовок про що буде нагадування")
                 .messageId(query.getMessage().getMessageId())
                 .chatId(query.getMessage().getChatId())
                 .replyMarkup(
@@ -312,7 +312,7 @@ public class NotificationManager extends AbstractManager
         return EditMessageText.builder()
                 .chatId(query.getMessage().getChatId())
                 .messageId(query.getMessage().getMessageId())
-                .text("Настройте уведомление")
+                .text("Налаштуйте нагадування")
                 .replyMarkup(editNotificationReplyMarkup(id))
                 .build();
 
@@ -327,17 +327,17 @@ public class NotificationManager extends AbstractManager
             text.add("❌ Заголовок");
         }
         if (notification.getSeconds() != null && notification.getSeconds() != 0) {
-            text.add("✅ Время");
+            text.add("✅ Час");
         } else {
-            text.add("❌ Время");
+            text.add("❌ Час");
         }
         if (notification.getDescription() != null && !notification.getDescription().isBlank()) {
-            text.add("✅ Описание");
+            text.add("✅ Опис");
         } else {
-            text.add("❌ Описание");
+            text.add("❌ Опис");
         }
-        text.add("\uD83D\uDD19 Главная");
-        text.add("\uD83D\uDD50 Готово");
+        text.add("\uD83D\uDD19 Головна");
+        text.add("\uD83D\uDD50 Успіх");
         return keyboardFactory.createInlineKeyboard(
                 text,
                 List.of(2, 1, 2),

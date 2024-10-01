@@ -6,6 +6,7 @@ import com.nerzon.notificationbot.service.manager.MainManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.interfaces.BotApiObject;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -13,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CommandHandler extends AbstractHandler {
     MainManager mainManager;
